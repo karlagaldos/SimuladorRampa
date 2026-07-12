@@ -59,9 +59,9 @@ def render_dcl(angulo_deg: float, superficie: Superficie, altura: int = H + 10) 
 
     colores = {"peso": "#F87171", "normal": "#38BDF8", "friccion": "#FBBF24"}
     puntas = "".join(
-        f"""<marker id="punta-{c.strip('#')}" markerWidth="9" markerHeight="9"
-                    refX="7" refY="3.5" orient="auto">
-                <path d="M0,0 L8,3.5 L0,7 Z" fill="{c}"/>
+        f"""<marker id="punta-{c.strip('#')}" markerUnits="userSpaceOnUse"
+                    markerWidth="13" markerHeight="11" refX="10" refY="5" orient="auto">
+                <path d="M0,0 L12,5 L0,10 Z" fill="{c}"/>
             </marker>"""
         for c in colores.values()
     )
@@ -93,9 +93,12 @@ def render_dcl(angulo_deg: float, superficie: Superficie, altura: int = H + 10) 
         {_flecha(CX, CY - 8, CX + l_norm * nx, CY - 8 + l_norm * ny,
                  colores['normal'], "N", normal, (8, -6))}
 
-        <!-- Fricción: paralela al plano, hacia arriba -->
-        {_flecha(CX, CY - 8, CX + l_fric * fx, CY - 8 + l_fric * fy,
-                 colores['friccion'], "f = μN", friccion, (-70, -8))}
+        <!-- Fricción: paralela al plano, pendiente arriba (nace en el borde
+             de contacto del cuerpo para que la flecha sea visible) -->
+        {_flecha(CX - 26 * math.cos(theta), CY - 8 - 26 * math.sin(theta),
+                 CX - 26 * math.cos(theta) + l_fric * fx,
+                 CY - 8 - 26 * math.sin(theta) + l_fric * fy,
+                 colores['friccion'], "f = μN", friccion, (-78, -10))}
 
         <text x="14" y="22" fill="#8CA0C4" font-size="12">
             Diagrama de cuerpo libre · θ = {angulo_deg:.0f}° · μ = {mu}

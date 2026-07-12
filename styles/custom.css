@@ -313,3 +313,50 @@ div[data-testid="stToast"] { background: var(--panel-2) !important; color: #EAF2
 
 /* ── Divisores y encabezados de sección ──────────────────────── */
 .stApp hr { border-color: var(--borde) !important; }
+
+/* ── Botones legibles en cualquier tema (claro u oscuro) ─────── */
+.stButton > button {
+    background: var(--panel-2) !important;
+    color: #EAF2FF !important;
+    border: 1px solid var(--borde) !important;
+}
+.stButton > button p, .stButton > button span { color: inherit !important; }
+.stButton > button:hover {
+    border-color: var(--exp) !important;
+    color: #FFFFFF !important;
+}
+.stButton > button[kind="primary"],
+.stButton > button[kind="primaryFormSubmit"] {
+    background: var(--utp) !important;
+    border-color: var(--utp) !important;
+    color: #FFFFFF !important;
+}
+.stButton > button:disabled {
+    background: rgba(195,17,66,.28) !important;
+    color: #FFD3DF !important;
+    border-color: rgba(195,17,66,.55) !important;
+    opacity: 1 !important;
+}
+
+/* ── Etiquetas de widgets y ayudas ───────────────────────────── */
+[data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {
+    color: #EAF2FF !important;
+}
+[data-testid="stTooltipIcon"] svg { color: var(--texto-suave) !important; }
+
+/* ── Slider: pulgar y valor con identidad UTP ────────────────── */
+div[data-testid="stSlider"] div[role="slider"] {
+    background-color: var(--utp) !important;
+}
+div[data-testid="stSlider"] [data-testid="stThumbValue"] {
+    color: #EAF2FF !important;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Controles del panel lateral (flecha de colapso, íconos) ─── */
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stSidebarCollapsedControl"] svg,
+[data-testid="collapsedControl"] svg {
+    color: #EAF2FF !important; fill: #EAF2FF !important;
+}
+div[data-testid="stSidebar"] hr { border-color: var(--borde) !important; }

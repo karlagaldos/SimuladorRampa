@@ -47,17 +47,24 @@ def render_simulacion(
     dy = (pie[1] - cima[1])
     dur = max(0.6, min(duracion_s, 6.0))  # Duración acotada para que siempre se aprecie
 
+    # La TRASLACIÓN se anima con CSS (independiente del origen de transformación)
+    # y la ROTACIÓN se aplica como atributo SVG en un grupo interno, que rota de
+    # forma fiable alrededor del origen local en todos los navegadores.
     animacion_css = f"""
         #carrito {{
+            transform-box: view-box;
+            transform-origin: 0 0;
             animation: bajar {dur:.2f}s cubic-bezier(.45,.03,.71,.61) forwards;
         }}
         @keyframes bajar {{
-            from {{ transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px) rotate({ang:.1f}deg); }}
-            to   {{ transform: translate({(cima[0]+dx*0.93):.1f}px, {(cima[1]+dy*0.93):.1f}px) rotate({ang:.1f}deg); }}
+            from {{ transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px); }}
+            to   {{ transform: translate({(cima[0]+dx*0.93):.1f}px, {(cima[1]+dy*0.93):.1f}px); }}
         }}
     """ if animar else f"""
         #carrito {{
-            transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px) rotate({ang:.1f}deg);
+            transform-box: view-box;
+            transform-origin: 0 0;
+            transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px);
             transition: transform .5s ease;
         }}
     """
@@ -99,17 +106,18 @@ def render_simulacion(
               fill="#EAF2FF" font-weight="bold">θ = {ang:.0f}°</text>
 
         <!-- Cotas: longitud y altura -->
-        <text x="{(cima[0]+pie[0])/2-30:.1f}" y="{(cima[1]+pie[1])/2-16:.1f}"
-              class="medida" transform="rotate({-ang:.1f} {(cima[0]+pie[0])/2:.1f} {(cima[1]+pie[1])/2:.1f})">
+        <text x="{(cima[0]+pie[0])/2-28:.1f}" y="{(cima[1]+pie[1])/2-14:.1f}"
+              class="medida" transform="rotate({ang:.1f} {(cima[0]+pie[0])/2:.1f} {(cima[1]+pie[1])/2:.1f})">
               L = 37 cm</text>
         <line x1="{cima[0]-14:.1f}" y1="{cima[1]:.1f}" x2="{cima[0]-14:.1f}" y2="{BASE_Y}"
               stroke="#64748B" stroke-width="1" stroke-dasharray="3 3"/>
-        <text x="{cima[0]-24:.1f}" y="{(cima[1]+BASE_Y)/2:.1f}" class="medida"
-              text-anchor="end">h = {0.37*math.sin(theta)*100:.1f} cm</text>
+        <text x="{cima[0]-20:.1f}" y="{(cima[1]+BASE_Y)/2:.1f}" class="medida" text-anchor="middle"
+              transform="rotate(-90 {cima[0]-20:.1f} {(cima[1]+BASE_Y)/2:.1f})">h = {0.37*math.sin(theta)*100:.1f} cm</text>
 
-        <!-- Carrito (grupo animable; el origen local está sobre la superficie,
-             las llantas quedan tangentes al borde superior de la rampa) -->
+        <!-- Carrito: el grupo externo se traslada (CSS) y el interno rota (SVG)
+             para que las llantas queden apoyadas sobre la superficie -->
         <g id="carrito">
+          <g transform="rotate({ang:.1f})">
             <rect x="6" y="-28" width="46" height="18" rx="5"
                   fill="#EAF2FF" stroke="#38BDF8" stroke-width="2"/>
             <circle cx="17" cy="-8" r="6" fill="#0D1526" stroke="#38BDF8" stroke-width="2"/>
@@ -117,10 +125,12 @@ def render_simulacion(
             <!-- Vector velocidad (indicativo, apunta pendiente abajo) -->
             <line x1="52" y1="-19" x2="76" y2="-19" stroke="#34D399" stroke-width="2.5"
                   marker-end="url(#flechaV)"/>
+          </g>
         </g>
         <defs>
-            <marker id="flechaV" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                <path d="M0,0 L7,3 L0,6 Z" fill="#34D399"/>
+            <marker id="flechaV" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="9"
+                    refX="8" refY="4" orient="auto">
+                <path d="M0,0 L10,4 L0,8 Z" fill="#34D399"/>
             </marker>
         </defs>
 
