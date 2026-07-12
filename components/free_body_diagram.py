@@ -74,13 +74,14 @@ def render_dcl(angulo_deg: float, superficie: Superficie, altura: int = H + 10) 
          style="font-family:'Space Grotesk',sans-serif;">
         <defs>{puntas}</defs>
 
-        <!-- Línea del plano inclinado (referencia) -->
-        <line x1="{CX-120*math.cos(theta):.1f}" y1="{CY+120*math.sin(theta):.1f}"
-              x2="{CX+120*math.cos(theta):.1f}" y2="{CY-120*math.sin(theta):.1f}"
-              stroke="#24304D" stroke-width="2" stroke-dasharray="6 4"/>
+        <!-- Línea del plano inclinado (misma orientación que la simulación:
+             desciende de izquierda a derecha) -->
+        <line x1="{CX-120*math.cos(theta):.1f}" y1="{CY-120*math.sin(theta):.1f}"
+              x2="{CX+120*math.cos(theta):.1f}" y2="{CY+120*math.sin(theta):.1f}"
+              stroke="#3B4A6E" stroke-width="2" stroke-dasharray="6 4"/>
 
         <!-- Cuerpo (carrito como partícula) -->
-        <g transform="rotate({-angulo_deg:.1f} {CX} {CY})">
+        <g transform="rotate({angulo_deg:.1f} {CX} {CY})">
             <rect x="{CX-22}" y="{CY-16}" width="44" height="16" rx="4"
                   fill="#EAF2FF" stroke="#38BDF8" stroke-width="2"/>
         </g>

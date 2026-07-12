@@ -52,12 +52,12 @@ def render_simulacion(
             animation: bajar {dur:.2f}s cubic-bezier(.45,.03,.71,.61) forwards;
         }}
         @keyframes bajar {{
-            from {{ transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px) rotate({-ang:.1f}deg); }}
-            to   {{ transform: translate({(cima[0]+dx*0.93):.1f}px, {(cima[1]+dy*0.93):.1f}px) rotate({-ang:.1f}deg); }}
+            from {{ transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px) rotate({ang:.1f}deg); }}
+            to   {{ transform: translate({(cima[0]+dx*0.93):.1f}px, {(cima[1]+dy*0.93):.1f}px) rotate({ang:.1f}deg); }}
         }}
     """ if animar else f"""
         #carrito {{
-            transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px) rotate({-ang:.1f}deg);
+            transform: translate({cima[0]:.1f}px, {cima[1]:.1f}px) rotate({ang:.1f}deg);
             transition: transform .5s ease;
         }}
     """
@@ -107,14 +107,15 @@ def render_simulacion(
         <text x="{cima[0]-24:.1f}" y="{(cima[1]+BASE_Y)/2:.1f}" class="medida"
               text-anchor="end">h = {0.37*math.sin(theta)*100:.1f} cm</text>
 
-        <!-- Carrito (grupo animable) -->
+        <!-- Carrito (grupo animable; el origen local está sobre la superficie,
+             las llantas quedan tangentes al borde superior de la rampa) -->
         <g id="carrito">
-            <rect x="6" y="-26" width="46" height="18" rx="5"
+            <rect x="6" y="-28" width="46" height="18" rx="5"
                   fill="#EAF2FF" stroke="#38BDF8" stroke-width="2"/>
-            <circle cx="17" cy="-6" r="6" fill="#0D1526" stroke="#38BDF8" stroke-width="2"/>
-            <circle cx="41" cy="-6" r="6" fill="#0D1526" stroke="#38BDF8" stroke-width="2"/>
-            <!-- Vector velocidad (indicativo) -->
-            <line x1="52" y1="-17" x2="76" y2="-17" stroke="#34D399" stroke-width="2.5"
+            <circle cx="17" cy="-8" r="6" fill="#0D1526" stroke="#38BDF8" stroke-width="2"/>
+            <circle cx="41" cy="-8" r="6" fill="#0D1526" stroke="#38BDF8" stroke-width="2"/>
+            <!-- Vector velocidad (indicativo, apunta pendiente abajo) -->
+            <line x1="52" y1="-19" x2="76" y2="-19" stroke="#34D399" stroke-width="2.5"
                   marker-end="url(#flechaV)"/>
         </g>
         <defs>

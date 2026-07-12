@@ -218,3 +218,98 @@ div[data-testid="stSidebar"] { border-top: 4px solid var(--utp); }
     padding-top: 6px;
 }
 .pie-utp b { color: var(--utp-claro); }
+
+/* ══════════════════════════════════════════════════════════════
+   LEGIBILIDAD GARANTIZADA
+   Fuerza el tema oscuro y el color de texto claro en toda la app,
+   incluso si el despliegue no carga .streamlit/config.toml.
+   Los paneles (métricas, desplegables, pestañas) adoptan el mismo
+   formato que las tarjetas de resultados.
+   ══════════════════════════════════════════════════════════════ */
+
+.stApp {
+    background: radial-gradient(1200px 600px at 20% -10%, #16213C 0%, #0B1220 55%) !important;
+}
+.stApp, .stApp p, .stApp span, .stApp label, .stApp li,
+.stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
+div[data-testid="stSidebar"] p, div[data-testid="stSidebar"] span,
+div[data-testid="stSidebar"] label,
+div[data-testid="stSidebar"] h1, div[data-testid="stSidebar"] h2,
+div[data-testid="stSidebar"] h3, div[data-testid="stSidebar"] h4 {
+    color: #EAF2FF;
+}
+.stApp [data-testid="stCaptionContainer"],
+.stApp [data-testid="stCaptionContainer"] p {
+    color: var(--texto-suave) !important;
+}
+.stApp a { color: var(--exp); }
+
+/* ── Métricas: mismo panel que las tarjetas ──────────────────── */
+div[data-testid="stMetric"] {
+    background: linear-gradient(160deg, var(--panel-2), var(--panel)) !important;
+    border: 1px solid var(--borde) !important;
+    border-left: 4px solid var(--warn) !important;
+}
+div[data-testid="stMetric"] [data-testid="stMetricLabel"],
+div[data-testid="stMetric"] [data-testid="stMetricLabel"] p {
+    color: var(--texto-suave) !important;
+}
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    color: #EAF2FF !important;
+    font-family: 'JetBrains Mono', monospace;
+}
+div[data-testid="stSidebar"] div[data-testid="stMetric"] {
+    border-left-color: var(--utp) !important;
+}
+
+/* ── Desplegables (cálculos paso a paso): formato tarjeta ────── */
+div[data-testid="stExpander"] {
+    background: linear-gradient(160deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--borde);
+    border-left: 4px solid var(--teo);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+div[data-testid="stExpander"] details { border: none !important; background: transparent !important; }
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] summary p,
+div[data-testid="stExpander"] summary span {
+    color: #EAF2FF !important;
+    font-weight: 600;
+}
+div[data-testid="stExpander"] summary:hover { color: var(--exp) !important; }
+div[data-testid="stExpander"] svg { fill: var(--texto-suave); }
+
+/* ── Pestañas ────────────────────────────────────────────────── */
+button[data-baseweb="tab"] p { color: var(--texto-suave) !important; }
+button[data-baseweb="tab"][aria-selected="true"] p { color: #EAF2FF !important; font-weight: 700; }
+button[data-baseweb="tab"][aria-selected="true"] { border-bottom-color: var(--utp) !important; }
+div[data-baseweb="tab-highlight"] { background-color: var(--utp) !important; }
+
+/* ── Entradas numéricas y slider ─────────────────────────────── */
+div[data-testid="stNumberInput"] input {
+    background: var(--panel) !important;
+    color: #EAF2FF !important;
+    border: 1px solid var(--borde) !important;
+    font-family: 'JetBrains Mono', monospace;
+}
+div[data-testid="stNumberInput"] button {
+    background: var(--panel-2) !important;
+    color: #EAF2FF !important;
+    border: 1px solid var(--borde) !important;
+}
+div[data-testid="stSlider"] [data-testid="stTickBar"] div { color: var(--texto-suave) !important; }
+
+/* ── Avisos, toasts y LaTeX ──────────────────────────────────── */
+div[data-testid="stAlert"] {
+    background: var(--panel) !important;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+div[data-testid="stAlert"] p { color: #EAF2FF !important; }
+.stApp .katex { color: #EAF2FF; }
+div[data-testid="stToast"] { background: var(--panel-2) !important; color: #EAF2FF !important; }
+
+/* ── Divisores y encabezados de sección ──────────────────────── */
+.stApp hr { border-color: var(--borde) !important; }
