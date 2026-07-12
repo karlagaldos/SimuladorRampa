@@ -1,14 +1,17 @@
 /* ══════════════════════════════════════════════════════════════
    Simulador de Plano Inclinado · Tema "Laboratorio Virtual"
    Identidad de color:
-     · Cian    #38BDF8 → datos EXPERIMENTALES
-     · Violeta #A78BFA → datos TEÓRICOS
-     · Ámbar   #FBBF24 → alertas y comparación
+     · Rojo UTP #C31142 → marca institucional (UTP)
+     · Cian     #38BDF8 → datos EXPERIMENTALES
+     · Violeta  #A78BFA → datos TEÓRICOS
+     · Ámbar    #FBBF24 → alertas y comparación
    ══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
 :root {
+    --utp: #C31142;
+    --utp-claro: #F43F6E;
     --exp: #38BDF8;
     --teo: #A78BFA;
     --warn: #FBBF24;
@@ -29,7 +32,7 @@ html, body, [class*="css"] {
     font-size: 1.9rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    background: linear-gradient(90deg, var(--exp), var(--teo));
+    background: linear-gradient(90deg, var(--utp-claro), #FFB3C6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0;
@@ -182,3 +185,36 @@ div[data-testid="stMetric"] {
 @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
 }
+
+
+/* ── Encabezado institucional UTP ────────────────────────────── */
+.encabezado-utp {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: linear-gradient(120deg, rgba(195,17,66,.18), rgba(19,28,46,.7) 55%);
+    border: 1px solid rgba(195,17,66,.45);
+    border-left: 5px solid var(--utp);
+    margin-bottom: 14px;
+}
+.encabezado-utp img { height: 46px; }
+.encabezado-utp .curso {
+    color: var(--texto-suave);
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+/* Franja institucional en la barra lateral */
+div[data-testid="stSidebar"] { border-top: 4px solid var(--utp); }
+
+/* Pie de página institucional */
+.pie-utp {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: .8rem;
+    padding-top: 6px;
+}
+.pie-utp b { color: var(--utp-claro); }

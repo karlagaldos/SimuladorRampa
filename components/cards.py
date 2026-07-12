@@ -8,6 +8,8 @@ animación en cascada (ver styles/custom.css).
 
 from __future__ import annotations
 
+import re
+
 import streamlit as st
 
 from physics.calculations import Paso, Resultados
@@ -63,11 +65,16 @@ def titulo_zona(texto: str, color: str) -> None:
 
 def _latex_plano(formula: str) -> str:
     """Versión compacta de la fórmula para la tarjeta (sin renderizar LaTeX)."""
+    # 1) Subíndices primero, para que las fracciones queden sin llaves internas
+    formula = formula.replace("_{exp}", "ₑₓₚ").replace("_{teo}", "ₜₑₒ")
+    # 2) \dfrac{A}{B} → (A) / (B)
+    formula = re.sub(r"\\[dt]?frac\{([^{}]*)\}\{([^{}]*)\}", r"(\1) / (\2)", formula)
+    # 3) Resto de símbolos y limpieza
     reemplazos = {
-        r"\dfrac": "", r"\sqrt": "√", r"\sin": "sin", r"\cos": "cos",
+        r"\sqrt": "√", r"\sin": "sin", r"\cos": "cos",
         r"\theta": "θ", r"\mu": "μ", r"\cdot": "·", r"\times": "×",
-        r"\tfrac{1}{2}": "½", "{": "", "}": "", r"\,": " ", "^2": "²",
-        r"\to \infty": "→ ∞", "_exp": "ₑₓₚ", "_teo": "ₜₑₒ", r"\": "",
+        r"\to \infty": "→ ∞", r"\,": " ", "{": "", "}": "",
+        "^ 2": "²", "^2": "²", "(1) / (2)": "½", "\\": "",
     }
     for k, v in reemplazos.items():
         formula = formula.replace(k, v)

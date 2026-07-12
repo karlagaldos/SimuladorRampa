@@ -11,6 +11,7 @@ Ejecución local:
 
 from __future__ import annotations
 
+import base64
 import math
 from pathlib import Path
 
@@ -106,14 +107,21 @@ with st.sidebar:
 calculado: bool = st.session_state.get("calculado", False)
 
 # ══════════════════════════════════════════════════════════════
-#  Encabezado
+#  Encabezado institucional UTP
 # ══════════════════════════════════════════════════════════════
 
+logo_utp = base64.b64encode(Path("assets/utp_logo.png").read_bytes()).decode()
 st.markdown(
-    """
-    <p class="titulo-app">🛗 Simulador · Carrito sobre Plano Inclinado</p>
-    <p class="subtitulo-app">Laboratorio virtual de Física ·
-    comparación entre resultados experimentales y teóricos</p>
+    f"""
+    <div class="encabezado-utp">
+        <img src="data:image/png;base64,{logo_utp}" alt="Universidad Tecnológica del Perú"/>
+        <div>
+            <p class="titulo-app">🛗 Simulador · Carrito sobre Plano Inclinado</p>
+            <p class="subtitulo-app">Laboratorio virtual de Física ·
+            comparación entre resultados experimentales y teóricos</p>
+            <p class="curso">Universidad Tecnológica del Perú · Laboratorio de Física</p>
+        </div>
+    </div>
     """,
     unsafe_allow_html=True,
 )
@@ -225,4 +233,9 @@ st.caption(
     "a_exp = 2L/t² · a_teo = g(sinθ − μcosθ) · "
     "Los coeficientes μ son valores de referencia y pueden calibrarse en "
     "`physics/constants.py`."
+)
+st.markdown(
+    '''<p class="pie-utp">Desarrollado para el curso de Física ·
+    <b>Universidad Tecnológica del Perú (UTP)</b></p>''',
+    unsafe_allow_html=True,
 )

@@ -1,5 +1,7 @@
 # 🛗 Simulador · Carrito sobre Plano Inclinado
 
+> Proyecto del curso de Física · **Universidad Tecnológica del Perú (UTP)**
+
 Laboratorio virtual de Física que simula el movimiento de un carrito sobre un plano inclinado y **compara los resultados experimentales** (tiempo cronometrado en el laboratorio) **con las predicciones teóricas** del modelo de fricción cinética.
 
 Desarrollado con **Python + Streamlit + Plotly**, con animaciones SVG, cálculos paso a paso y observaciones automáticas.
@@ -77,7 +79,9 @@ simulador-plano-inclinado/
 ├── utils/
 │   └── observations.py           # Conclusiones automáticas del ensayo
 ├── styles/
-│   └── custom.css                # Tema "laboratorio virtual"
+│   └── custom.css                # Tema "laboratorio virtual" + identidad UTP
+├── assets/
+│   └── utp_logo.png              # Logo institucional (fondo transparente)
 ├── .streamlit/config.toml        # Tema base de Streamlit
 ├── requirements.txt
 ├── LICENSE                       # MIT
